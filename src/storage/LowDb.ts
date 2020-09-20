@@ -55,7 +55,7 @@ export class LowDbAdapter implements StorageAdapter {
 
     ((await this.db).get(`transactions.${pathToTransaction}.instances`) as unknown as CollectionChain<LowDbTransactionInstance>).push({syntacticId, startTime: new Date(Number(startTime))}).write();
 
-    (await this.db).get('transactionData').push({syntacticId});
+    (await this.db).get('transactionData').push({syntacticId}).write();
 
     return syntacticId;
   }
