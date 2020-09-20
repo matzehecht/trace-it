@@ -4,7 +4,8 @@
   "description": "This package provides a lightweight performance tracing/measuring tool based on transaction trees. (Inspired by the performance monitoring from sentry.io. But is not distributed)",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "prebuild": "shx rm -rf dist",
+    "build": "tsc",
     "semantic-release": "semantic-release"
   },
   "author": "Matthias Hecht",
@@ -26,7 +27,24 @@
     "type": "git",
     "url": "https://github.com/matzehecht/performance-tracing.git"
   },
-  "publishConfig": {
-    "access": "restricted"
+  "keywords": [
+    "performace",
+    "transaction",
+    "measuring",
+    "tracing"
+  ],
+  "bugs": {
+    "url": "https://github.com/matzehecht/performance-tracing/issues"
+  },
+  "homepage": "https://github.com/matzehecht/performance-tracing#readme",
+  "release": {
+    "branches": [
+      "+([0-9])?(.{+([0-9]),x}).x",
+      "master",
+      {
+        "name": "dev",
+        "prerelease": true
+      }
+    ]
   }
 }
