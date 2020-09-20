@@ -43,7 +43,7 @@ jobs:
         with:
           node-version: 14
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --only=prod
       - name: Release
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}

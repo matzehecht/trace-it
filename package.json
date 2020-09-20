@@ -1,10 +1,11 @@
 {
   "name": "performance-tracing",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "This package provides a lightweight performance tracing/measuring tool based on transaction trees. (Inspired by the performance monitoring from sentry.io. But is not distributed)",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "semantic-release": "semantic-release"
   },
   "author": "Matthias Hecht",
   "license": "MIT",
@@ -14,10 +15,18 @@
     "shx": "^0.3.2",
     "ts-node": "^9.0.0",
     "tslint": "^6.1.3",
-    "typescript": "^4.0.3"
+    "typescript": "^4.0.3",
+    "semantic-release": "^17.1.2"
   },
   "dependencies": {
     "lowdb": "^1.0.0",
     "nanoid": "^3.1.12"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/matzehecht/performance-tracing.git"
+  },
+  "publishConfig": {
+    "access": "restricted"
   }
 }
