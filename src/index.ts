@@ -3,9 +3,9 @@ import * as Storage from './storage';
 
 export { PRECISION } from './models';
 
-let StorageAdapter: Storage.Adapter | undefined;
+let StorageAdapter: Storage.Adapter = Storage.getStorage('memory', {});
 
-export function init({ storage = 'memory', storageOptions = {} }: InitOptions = { storage: 'memory', storageOptions: {}}) {
+export function init({ storage = 'memory', storageOptions = {} }: InitOptions = { storage: 'memory', storageOptions: {} }) {
   StorageAdapter = Storage.getStorage(storage, storageOptions);
 }
 
@@ -14,25 +14,34 @@ export class Transaction {
   private endCb: ((result: Result) => void) | undefined;
   private parentSemanticId: string[];
   private semanticId: string;
-  private syntacticId: string;
+  private syntacticId: Promise<string>;
   private transactionData: TransactionData = {};
 
   private result: Result | undefined;
 
   private startTime: bigint;
 
-  private constructor(semanticId: string, parentSemanticId: string[] = [], parentSyntacticId?: string) {
+  private constructor(semanticId: string, parentSemanticId: string[] = []) {
     this.parentSemanticId = parentSemanticId;
     this.semanticId = semanticId;
     this.startTime = process.hrtime.bigint();
-    this.syntacticId = StorageAdapter?.createTransaction([...parentSemanticId, semanticId], this.startTime, parentSyntacticId) || '';
+    this.syntacticId = StorageAdapter.createTransaction([...parentSemanticId, semanticId], this.startTime);
   }
 
   public startChild(semanticId: string): Transaction {
-    const child = new Transaction(semanticId, this.parentSemanticId.concat(this.semanticId), this.syntacticId);
+    const child = new Transaction(semanticId, this.parentSemanticId.concat(this.semanticId));
+
+    this.syntacticId.then(id => {
+      child.setParentSyntacticId(id);
+    });
+
     if (!this.children) this.children = [];
     this.children.push(child);
     return child;
+  }
+
+  protected async setParentSyntacticId(parentSyntacticId: string) {
+    await StorageAdapter.setTransactionParent([...this.parentSemanticId, this.semanticId], await this.syntacticId, parentSyntacticId);
   }
 
   protected onEnd(cb: (result: Result) => void): void {
@@ -42,19 +51,19 @@ export class Transaction {
     this.endCb = cb;
   }
 
-  public set(data: TransactionData): void;
-  public set(key: string, data: any | undefined): void;
-  public set(x: string | TransactionData, y?: any | undefined) {
+  public async set(data: TransactionData): Promise<void>;
+  public async set(key: string, data: any | undefined): Promise<void>;
+  public async set(x: string | TransactionData, y?: any | undefined): Promise<void> {
     if (typeof x === 'string') {
       if (typeof y === 'undefined') {
         delete this.transactionData[x];
       } else {
         this.transactionData[x] = y;
       }
-      StorageAdapter?.updateTransactionData(this.syntacticId, x, y);
+      StorageAdapter.updateTransactionData(await this.syntacticId, x, y);
     } else {
       this.transactionData = { ...this.transactionData, ...x };
-      StorageAdapter?.updateTransactionData(this.syntacticId, x);
+      StorageAdapter.updateTransactionData(await this.syntacticId, x);
     }
   }
 
@@ -81,7 +90,9 @@ export class Transaction {
     this.result = result;
     this.endCb?.(result);
 
-    StorageAdapter?.endTransaction([...this.parentSemanticId, this.semanticId], this.syntacticId, timing);
+    this.syntacticId.then((id) => {
+      StorageAdapter.endTransaction([...this.parentSemanticId, this.semanticId], id, timing);
+    });
 
     return result;
   }
