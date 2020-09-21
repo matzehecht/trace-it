@@ -2,6 +2,13 @@ import { InitStorageOptions, TransactionData } from '../models';
 
 export type Drivers = 'memory' | 'lowdb' | 'mongodb';
 
+export interface TransactionInstance {
+  syntacticId: string;
+  parentSyntacticId?: string;
+  startTime: Date;
+  timing?: number;
+}
+
 /**
  * Declaration for the Storage drivers.
  *
@@ -72,4 +79,12 @@ export abstract class Adapter {
    * @memberof Adapter
    */
   public abstract async updateTransactionData(syntacticId: string, transactionData: TransactionData): Promise<void>;
+
+  public abstract async getChildren(semanticId: string[]): Promise<string[][]>;
+
+  public abstract async getInstancesTimings(semanticId: string[]): Promise<(number | undefined)[]>;
+
+  public abstract async getInstances(semanticId: string[]): Promise<TransactionInstance[]>;
+
+  public abstract async getTransactionData(syntacticId: string): Promise<TransactionData>;
 }
