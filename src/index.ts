@@ -1,7 +1,7 @@
 import { InitOptions, PRECISION, TransactionData } from './models';
 import * as Storage from './storage';
 
-export { PRECISION } from './models';
+export { PRECISION, InitOptions, TransactionData };
 
 let StorageAdapter: Storage.Adapter = Storage.getStorage('memory', {});
 
@@ -121,7 +121,7 @@ export class Result {
       })
       .join('\n|\n');
     const outTiming: number = prec === 'ns' ? Number(this.timing) : prec === 'ms' ? Number(this.timing) / 1000000 : Number(this.timing) / 1000000000;
-    return `${this.semanticId} - ${Math.round(outTiming)}${prec}${output ? `\n${output}` : ''}`;
+    return `${this.semanticId} - ${(prec === 'ns') ? outTiming : (prec === 'ms') ? outTiming.toFixed(2) : outTiming.toFixed(4)}${prec}${output ? `\n${output}` : ''}`;
   }
 
   static fromObject(obj: { semanticId: string; timing: BigInt; children?: Result[] }) {

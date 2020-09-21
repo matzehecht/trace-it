@@ -27,7 +27,7 @@ export interface InitOptions {
 
 export interface InitStorageOptions {
   /**
-   * Name of the database (or the db file for lowdb: `dbName: 'perf'` will be 'perf.json').
+   * Name of the database (or the db file for lowdb).
    * Not used for memory.
    *
    * @type {string}
@@ -35,8 +35,8 @@ export interface InitStorageOptions {
    */
   dbName?: string;
   /**
-   * The database url (or directory path for lowdb).
-   * Not used for memory.
+   * The database url.
+   * Not used for memory and lowdb.
    *
    * @type {string}
    * @memberof InitDbOptions
