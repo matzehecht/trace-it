@@ -8,13 +8,19 @@
     "build": "tsc",
     "semantic-release": "semantic-release"
   },
-  "author": "Matthias Hecht",
+  "bin": "dist/cli.js",
+  "author": {
+    "name": "Matthias Hecht",
+    "email": "matthias@hecht.space",
+    "url": "https://hecht.space"
+  },
   "license": "MIT",
   "devDependencies": {
     "@types/lowdb": "^1.0.9",
     "@types/node": "^14.11.1",
     "semantic-release": "^17.1.2",
     "shx": "^0.3.2",
+    "ts-node": "^9.0.0",
     "tslint": "^6.1.3",
     "typescript": "^4.0.3"
   },
@@ -35,7 +41,7 @@
   "bugs": {
     "url": "https://github.com/matzehecht/performance-tracing/issues"
   },
-  "homepage": "https://github.com/matzehecht/performance-tracing#readme",
+  "homepage": "https://github.com/matzehecht/performance-tracing",
   "release": {
     "branches": [
       "+([0-9])?(.{+([0-9]),x}).x",

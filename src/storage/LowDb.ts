@@ -1,4 +1,3 @@
-import * as path from 'path';
 import LowDb from 'lowdb';
 import FileAsync from 'lowdb/adapters/FileAsync';
 import { CollectionChain } from 'lodash';
@@ -35,11 +34,11 @@ interface LowDbTransactionData extends TransactionData {
 export class LowDbAdapter implements StorageAdapter {
   private db: Promise<LowDb.LowdbAsync<LowDbDatabase>>;
 
-  constructor({dbUrl = './', dbName = 'perf'}: InitStorageOptions) {
-    const adapter = new FileAsync(path.join(dbUrl, `${dbName}.json`));
+  constructor({ dbName = './perf.json' }: InitStorageOptions) {
+    const adapter = new FileAsync(dbName);
 
     this.db = LowDb(adapter);
-    this.db.then(db => db.defaults({transactions: {}, transactionData: []}).write());
+    this.db.then((db) => db.defaults({ transactions: {}, transactionData: [] }).write());
   }
 
   public async createTransaction(semanticId: string[], startTime: BigInt): Promise<string> {
@@ -50,12 +49,14 @@ export class LowDbAdapter implements StorageAdapter {
     // Check if semantic Transaction does exist.
     if (!(await this.db).has(`transactions.${pathToTransaction}`).value()) {
       // If not: create semantic Transaction
-      (await this.db).set(`transactions.${pathToTransaction}`, {children: {}, instances: []}).write();
+      (await this.db).set(`transactions.${pathToTransaction}`, { children: {}, instances: [] }).write();
     }
 
-    ((await this.db).get(`transactions.${pathToTransaction}.instances`) as unknown as CollectionChain<LowDbTransactionInstance>).push({syntacticId, startTime: new Date(Number(startTime))}).write();
+    (((await this.db).get(`transactions.${pathToTransaction}.instances`) as unknown) as CollectionChain<LowDbTransactionInstance>)
+      .push({ syntacticId, startTime: new Date(Number(startTime)) })
+      .write();
 
-    (await this.db).get('transactionData').push({syntacticId}).write();
+    (await this.db).get('transactionData').push({ syntacticId }).write();
 
     return syntacticId;
   }
@@ -63,13 +64,19 @@ export class LowDbAdapter implements StorageAdapter {
   public async setTransactionParent(semanticId: string[], syntacticId: string, parentSyntacticId: string): Promise<void> {
     const pathToTransaction = semanticId.join('.children.');
 
-    ((await this.db).get(`transactions.${pathToTransaction}.instances`) as unknown as CollectionChain<LowDbTransactionInstance>).find({ syntacticId }).assign({ parentSyntacticId }).write();
+    (((await this.db).get(`transactions.${pathToTransaction}.instances`) as unknown) as CollectionChain<LowDbTransactionInstance>)
+      .find({ syntacticId })
+      .assign({ parentSyntacticId })
+      .write();
   }
 
   public async endTransaction(semanticId: string[], syntacticId: string, timing: BigInt): Promise<void> {
     const pathToTransaction = semanticId.join('.children.');
 
-    ((await this.db).get(`transactions.${pathToTransaction}.instances`) as unknown as CollectionChain<LowDbTransactionInstance>).find({ syntacticId }).assign({ timing: Number(timing) }).write();
+    (((await this.db).get(`transactions.${pathToTransaction}.instances`) as unknown) as CollectionChain<LowDbTransactionInstance>)
+      .find({ syntacticId })
+      .assign({ timing: Number(timing) })
+      .write();
   }
 
   public async updateTransactionData(syntacticId: string, x: TransactionData | string, y?: any | undefined): Promise<void> {
@@ -77,7 +84,11 @@ export class LowDbAdapter implements StorageAdapter {
       if (typeof y === 'undefined') {
         (await this.db).get('transactionData').find({ syntacticId }).unset(x).write();
       } else {
-        (await this.db).get('transactionData').find({ syntacticId }).assign({[x]: y}).write();
+        (await this.db)
+          .get('transactionData')
+          .find({ syntacticId })
+          .assign({ [x]: y })
+          .write();
       }
     } else {
       (await this.db).get('transactionData').find({ syntacticId }).assign(x).write();
