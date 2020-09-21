@@ -5,10 +5,22 @@ export { PRECISION, InitOptions, TransactionData };
 
 let StorageAdapter: Storage.Adapter = Storage.getStorage('memory', {});
 
+/**
+ * Initializes trace-it.
+ *
+ * @export
+ * @param {InitOptions} [{ storage = 'memory', storageOptions = {} }={ storage: 'memory', storageOptions: {} }]
+ */
 export function init({ storage = 'memory', storageOptions = {} }: InitOptions = { storage: 'memory', storageOptions: {} }) {
   StorageAdapter = Storage.getStorage(storage, storageOptions);
 }
 
+/**
+ * A single Transaction that will be tracked. Transaction starts immediatly.
+ *
+ * @export
+ * @class Transaction
+ */
 export class Transaction {
   private children: Transaction[] | undefined;
   private endCb: ((result: Result) => void) | undefined;
@@ -21,6 +33,12 @@ export class Transaction {
 
   private startTime: bigint;
 
+  /**
+   * Creates an instance of Transaction.
+   * @param {string} semanticId
+   * @param {string[]} [parentSemanticId=[]]
+   * @memberof Transaction
+   */
   private constructor(semanticId: string, parentSemanticId: string[] = []) {
     this.parentSemanticId = parentSemanticId;
     this.semanticId = semanticId;
@@ -28,6 +46,13 @@ export class Transaction {
     this.syntacticId = StorageAdapter.createTransaction([...parentSemanticId, semanticId], this.startTime);
   }
 
+  /**
+   * STarts a new child of the transaction.
+   *
+   * @param {string} semanticId
+   * @returns {Transaction}
+   * @memberof Transaction
+   */
   public startChild(semanticId: string): Transaction {
     const child = new Transaction(semanticId, this.parentSemanticId.concat(this.semanticId));
 
@@ -40,10 +65,26 @@ export class Transaction {
     return child;
   }
 
-  protected async setParentSyntacticId(parentSyntacticId: string) {
+  /**
+   * Sets the parent syntactic Id of a transaction.
+   *
+   * @protected
+   * @param {string} parentSyntacticId
+   * @returns {Promise<void>}
+   * @memberof Transaction
+   */
+  protected async setParentSyntacticId(parentSyntacticId: string): Promise<void> {
     await StorageAdapter.setTransactionParent([...this.parentSemanticId, this.semanticId], await this.syntacticId, parentSyntacticId);
   }
 
+  /**
+   * Register a new callback that will be called on end.
+   *
+   * @protected
+   * @param {(result: Result) => void} cb
+   * @returns {void}
+   * @memberof Transaction
+   */
   protected onEnd(cb: (result: Result) => void): void {
     if (this.result) {
       return cb(this.result);
@@ -51,7 +92,23 @@ export class Transaction {
     this.endCb = cb;
   }
 
+  /**
+   * Sets the transaction data of the transaction.
+   *
+   * @param {TransactionData} data
+   * @returns {Promise<void>}
+   * @memberof Transaction
+   */
   public async set(data: TransactionData): Promise<void>;
+
+  /**
+   * Sets or removes the transaction data of the transaction.
+   *
+   * @param {string} key
+   * @param {(any | undefined)} data
+   * @returns {Promise<void>}
+   * @memberof Transaction
+   */
   public async set(key: string, data: any | undefined): Promise<void>;
   public async set(x: string | TransactionData, y?: any | undefined): Promise<void> {
     if (typeof x === 'string') {
@@ -67,10 +124,23 @@ export class Transaction {
     }
   }
 
+  /**
+   * Returns the result of the transaction and it's children.
+   *
+   * @returns {(Result | undefined)}
+   * @memberof Transaction
+   */
   public getResult(): Result | undefined {
     return this.result;
   }
 
+  /**
+   * Triggers the end of the transaction and waits until all children have been ended.
+   * Returns the result.
+   *
+   * @returns {Promise<Result>}
+   * @memberof Transaction
+   */
   public async end(): Promise<Result> {
     const proms = this.children?.map((child) => {
       return new Promise<Result>((resolve) => {
@@ -97,11 +167,37 @@ export class Transaction {
     return result;
   }
 
-  static startTransaction(semanticId: string) {
+  /**
+   * Starts a new Transaction.
+   *
+   * @static
+   * @param {string} semanticId
+   * @returns {Transaction}
+   * @memberof Transaction
+   */
+  static startTransaction(semanticId: string): Transaction {
     return new Transaction(semanticId);
   }
 }
 
+/**
+ * Start a new Transaction.
+ * *Alias for Transaction.startTransaction()*
+ *
+ * @export
+ * @param {string} semanticId
+ * @returns {Transaction}
+ */
+export function startTransaction(semanticId: string): Transaction {
+  return Transaction.startTransaction(semanticId);
+}
+
+/**
+ * The result of a transation and it's children.
+ *
+ * @export
+ * @class Result
+ */
 export class Result {
   readonly semanticId: string;
   readonly timing: BigInt;
@@ -113,6 +209,13 @@ export class Result {
     this.children = children;
   }
 
+  /**
+   * Serializes the result.
+   *
+   * @param {PRECISION} prec
+   * @returns {string}
+   * @memberof Result
+   */
   public toString(prec: PRECISION): string {
     const output = this.children
       ?.map((child) => {
@@ -124,7 +227,15 @@ export class Result {
     return `${this.semanticId} - ${(prec === 'ns') ? outTiming : (prec === 'ms') ? outTiming.toFixed(2) : outTiming.toFixed(4)}${prec}${output ? `\n${output}` : ''}`;
   }
 
-  static fromObject(obj: { semanticId: string; timing: BigInt; children?: Result[] }) {
+  /**
+   * Creates a new result from an object.
+   *
+   * @static
+   * @param {{ semanticId: string; timing: BigInt; children?: Result[] }} obj
+   * @returns {Result}
+   * @memberof Result
+   */
+  static fromObject(obj: { semanticId: string; timing: BigInt; children?: Result[] }): Result {
     return new Result(obj.semanticId, obj.timing, obj.children);
   }
 }

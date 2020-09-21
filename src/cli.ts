@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { analyze, printStdout } from './analyze';
 import { HELP_MESSAGE, ANALYZE_HELP_MESSAGE } from './cli.const';
 import { PRECISION } from './models';
@@ -73,7 +74,7 @@ async function run() {
       }
     }
   } else {
-    throw new Error(`Command ${args[0]} not supported`);
+    exit(1, `Command ${args[0]} not supported`);
   }
 }
 
