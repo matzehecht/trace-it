@@ -1,17 +1,14 @@
-import * as fs from 'fs';
-const { version, homepage } = JSON.parse(fs.readFileSync('./package.json', 'utf-8'));
-
-const PRE_HELP_MESSAGE = `performance-tracing v${version}
+const PRE_HELP_MESSAGE = `trace-it v${process.env.npm_package_version}
 MIT Licensed.
 Written by Matthias Hecht (https://github.com/matzehecht).
-Source available: ${homepage}
+Source available: https://github.com/matzehecht/trace-it
 
-Documentation: ${homepage}/README.md`;
+Documentation: https://github.com/matzehecht/trace-it/README.md`;
 
 export const HELP_MESSAGE = `${PRE_HELP_MESSAGE}
-CLI tool related to performance-tracing
+CLI tool related to trace-it.
 
-USAGE: performance-tracing <COMMAND>
+USAGE: trace-it <COMMAND>
 
 AVAILABLE COMMANDS:
     analyze             Tool to analyze measured performance.`;
@@ -19,7 +16,7 @@ AVAILABLE COMMANDS:
 export const ANALYZE_HELP_MESSAGE = `${PRE_HELP_MESSAGE}
 CLI tool to analyze measured performance
 
-USAGE: performance-tracing analyze <OPTIONS>
+USAGE: trace-it analyze <OPTIONS>
 
 MANDATORY OPTIONS:
     --driver            The storage driver ('lowdb' or 'mongodb').
