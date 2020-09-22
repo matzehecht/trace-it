@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import { analyze, printStdout } from './analyze';
 import { HELP_MESSAGE, ANALYZE_HELP_MESSAGE } from './cli.const';
 import { PRECISION } from './models';

@@ -8,7 +8,7 @@
     "build": "tsc",
     "semantic-release": "semantic-release"
   },
-  "bin": "dist/cli.js",
+  "bin": "bin/cli",
   "author": {
     "name": "Matthias Hecht",
     "email": "matthias@hecht.space",
