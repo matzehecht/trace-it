@@ -23,3 +23,9 @@ export function getStorage(driver: Drivers, storageOptions: InitStorageOptions):
   }
   return new DummyAdapter(storageOptions);
 }
+
+export async function clear(storage: Drivers, storageOptions: InitStorageOptions) {
+  const StorageAdapter: Adapter = getStorage(storage, storageOptions);
+
+  await StorageAdapter.clear();
+}
