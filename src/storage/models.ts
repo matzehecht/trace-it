@@ -80,11 +80,52 @@ export abstract class Adapter {
    */
   public abstract async updateTransactionData(syntacticId: string, transactionData: TransactionData): Promise<void>;
 
+  /**
+   * This will return the semanticId of all children identified by the semanticId.
+   *
+   * @abstract
+   * @param {string[]} semanticId
+   * @returns {Promise<string[][]>}
+   * @memberof Adapter
+   */
   public abstract async getChildren(semanticId: string[]): Promise<string[][]>;
 
+  /**
+   * This will return all the timings of the instances (the transaction runs).
+   *
+   * @abstract
+   * @param {string[]} semanticId
+   * @returns {(Promise<(number | undefined)[]>)}
+   * @memberof Adapter
+   */
   public abstract async getInstancesTimings(semanticId: string[]): Promise<(number | undefined)[]>;
 
+  /**
+   * This will return the Instances of the Transaction.
+   *
+   * @abstract
+   * @param {string[]} semanticId
+   * @returns {Promise<TransactionInstance[]>}
+   * @memberof Adapter
+   */
   public abstract async getInstances(semanticId: string[]): Promise<TransactionInstance[]>;
 
+  /**
+   * This will return the transaction data of a transaction.
+   *
+   * @abstract
+   * @param {string} syntacticId
+   * @returns {Promise<TransactionData>}
+   * @memberof Adapter
+   */
   public abstract async getTransactionData(syntacticId: string): Promise<TransactionData>;
+
+  /**
+   * This will clear the storage. **ATTENTION** It deletes all measures.
+   *
+   * @abstract
+   * @returns {Promise<void>}
+   * @memberof Adapter
+   */
+  public abstract async clear(): Promise<void>;
 }

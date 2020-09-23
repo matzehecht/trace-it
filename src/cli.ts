@@ -1,7 +1,7 @@
 import { analyze, printStdout } from './analyze';
-import { HELP_MESSAGE, ANALYZE_HELP_MESSAGE } from './cli.const';
+import { HELP_MESSAGE, ANALYZE_HELP_MESSAGE, CLEAR_HELP_MESSAGE } from './cli.const';
 import { PRECISION } from './models';
-import { Drivers } from './storage';
+import { clear, Drivers } from './storage';
 
 run();
 
@@ -16,34 +16,7 @@ async function run() {
     if (isHelp(analyzeArgs[0])) {
       exit(0, ANALYZE_HELP_MESSAGE);
     } else {
-      const driverIndex = analyzeArgs.indexOf('--driver');
-      if (driverIndex < 0) exit(1, 'No driver specified');
-      const driver = analyzeArgs[driverIndex + 1];
-
-      if (!['lowdb', 'mongodb'].includes(driver)) exit(1, `${driver} not found`);
-
-      const dbNameIndex = analyzeArgs.indexOf('--dbName');
-      if (dbNameIndex < 0) exit(1, 'No dbName specified');
-      const dbName = analyzeArgs[dbNameIndex + 1];
-
-      let dbUrl: string | undefined;
-      let dbUser: string | undefined;
-      let dbPassword: string | undefined;
-
-      if (driver === 'mongodb') {
-        exit(1, 'mongodb not implemented yet');
-        const dbUrlIndex = analyzeArgs.indexOf('--dbUrl');
-        if (dbUrlIndex < 0) exit(1, 'No dbUrl specified');
-        dbUrl = analyzeArgs[dbUrlIndex + 1];
-
-        const dbUserIndex = analyzeArgs.indexOf('--dbUser');
-        if (dbUserIndex < 0) exit(1, 'No dbUser specified');
-        dbUser = analyzeArgs[dbUserIndex + 1];
-
-        const dbPasswordIndex = analyzeArgs.indexOf('--dbPassword');
-        if (dbPasswordIndex < 0) exit(1, 'No dbPassword specified');
-        dbPassword = analyzeArgs[dbPasswordIndex + 1];
-      }
+      const { driver, dbName, dbUrl, dbUser, dbPassword } = getStorageOptions(analyzeArgs);
 
       const precisionIndex = analyzeArgs.indexOf('--precision');
       const precision = precisionIndex < 0 ? 'ms' : analyzeArgs[precisionIndex + 1];
@@ -72,9 +45,52 @@ async function run() {
         printStdout(result, precision as PRECISION);
       }
     }
+  } else if (args[0] === 'clear') {
+    const clearArgs = args.slice(1);
+
+    if (isHelp(clearArgs[0])) {
+      exit(0, CLEAR_HELP_MESSAGE);
+    } else {
+      const { driver, dbName, dbUrl, dbUser, dbPassword } = getStorageOptions(clearArgs);
+
+      await clear(driver as Drivers, { dbName, dbUrl, dbUser, dbPassword });
+    }
   } else {
     exit(1, `Command ${args[0]} not supported`);
   }
+}
+
+function getStorageOptions(args: string[]) {
+  const driverIndex = args.indexOf('--driver');
+  if (driverIndex < 0) exit(1, 'No driver specified');
+  const driver = args[driverIndex + 1];
+
+  if (!['lowdb', 'mongodb'].includes(driver)) exit(1, `${driver} not found`);
+
+  const dbNameIndex = args.indexOf('--dbName');
+  if (dbNameIndex < 0) exit(1, 'No dbName specified');
+  const dbName = args[dbNameIndex + 1];
+
+  let dbUrl: string | undefined;
+  let dbUser: string | undefined;
+  let dbPassword: string | undefined;
+
+  if (driver === 'mongodb') {
+    exit(1, 'mongodb not implemented yet');
+    const dbUrlIndex = args.indexOf('--dbUrl');
+    if (dbUrlIndex < 0) exit(1, 'No dbUrl specified');
+    dbUrl = args[dbUrlIndex + 1];
+
+    const dbUserIndex = args.indexOf('--dbUser');
+    if (dbUserIndex < 0) exit(1, 'No dbUser specified');
+    dbUser = args[dbUserIndex + 1];
+
+    const dbPasswordIndex = args.indexOf('--dbPassword');
+    if (dbPasswordIndex < 0) exit(1, 'No dbPassword specified');
+    dbPassword = args[dbPasswordIndex + 1];
+  }
+
+  return { driver, dbName, dbUrl, dbUser, dbPassword };
 }
 
 function isHelp(arg: string) {

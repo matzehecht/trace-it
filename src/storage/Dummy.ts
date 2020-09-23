@@ -36,4 +36,8 @@ export class DummyAdapter extends StorageAdapter {
   public getTransactionData(syntacticId: string): Promise<TransactionData> {
     return Promise.resolve({});
   }
+
+  public clear(): Promise<void> {
+    return Promise.resolve();
+  }
 }

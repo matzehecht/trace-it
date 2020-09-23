@@ -122,4 +122,8 @@ export class LowDbAdapter implements StorageAdapter {
   public async getTransactionData(syntacticId: string): Promise<TransactionData> {
     return (await this.db).get('transactionData').find( { syntacticId }).value();
   }
+
+  public async clear(): Promise<void> {
+    (await this.db).setState({ transactions: {}, transactionData: [] }).write();
+  }
 }
