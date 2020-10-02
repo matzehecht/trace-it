@@ -19,6 +19,9 @@ transaction.end();
       - [Result](#result)
     - [Advanced](#advanced)
     - [:chart_with_upwards_trend: Analyze](#-analyze)
+    - [Additional stuff](#additional-stuff)
+      - [CLI](#cli)
+    - [Related packages](#related-packages)
   - [Changelog](#changelog)
   - [License](#license)
 
@@ -94,20 +97,17 @@ console.log(result.toString(TraceIt.PRECISION.MS)); // Serializes the transactio
 
 Now a little advanced usage.  
 Storing the transaction result only in the memory can be cool but not really helpful to do tracing on long running applications.  
-So I can happily announce that trace-it also adapters for writing to a database. Currently only a local [lowdb](https://github.com/typicode/lowdb) is supported but mongodb support is coming soon.
+So I can happily announce that trace-it also adapters for writing to a database. These sadapters are provided as plugins by other packages (so you only have to load the adapter you want).
+Currently only a local [lowdb](https://github.com/typicode/lowdb) is supported but mongodb support is coming soon.
+You can find the package [here](https://www.npmjs.com/package/@trace-it/lowdb-adapter).  
 To connect to a database you only have to initialize trace-it before using it.
 
 ```typescript
-const initOpts: TraceIt.InitOptions = {
-  storage: 'mongodb',                               // Can be memory (for basic usage), lowdb or mongodb.
-  storageOptions: {
-    dbName: 'trace-it',                             // The database name or the file (json file) path for lowdb.
-    dbUrl: '',                                      // Only used for mongodb.
-    dbUser: '',                                     // Only used for mongodb.
-    dbPassword: ''                                  // Only used for mongodb.
-  }
-}
-TraceIt.init(initOpts);
+import { LowDbAdapter } from '@trace-it/lowdb-adapter';
+
+// For lowdb the dbName is used to specify the json file
+const adapter = new LowDbAdapter({ dbName: './perf.json'});
+TraceIt.init(adapter);
 const transaction = TraceIt.startTransaction('root');
 // ...
 ```
@@ -115,20 +115,20 @@ const transaction = TraceIt.startTransaction('root');
 ### :chart_with_upwards_trend: Analyze
 
 Now we do have data. But are not using it. That's why trace-it has analyzation features.  
-The features are used by a cli. The cli tool is callable without installation:
+The features are used via a [cli](https://www.npmjs.com/package/@trace-it/cli). The cli tool is callable without installation:
 
 ```sh
-npx trace-it --help
+npx @trace-it/cli --help
 ```
 
 To call the analyzation features do the following:
 
 ```sh
-npx trace-it analyze --help
+npx @trace-it/cli analyze --help
 ```
 
 ```sh
-USAGE: npx trace-it analyze <OPTIONS>
+USAGE: npx @trace-it/cli analyze <OPTIONS>
 
 MANDATORY OPTIONS:
     --driver            The storage driver ('lowdb' or 'mongodb').    # Again mongodb is coming soon.
@@ -147,7 +147,7 @@ MANDATORY OPTIONS:
 The stdout output does only print some basic information:
 
 ```sh
-$ npx ts-node src/cli.ts analyze --driver lowdb --dbName ./perf.json  --output stdout
+$ npx @trace-it/cli analyze --driver lowdb --dbName ./perf.json  --output stdout
 semanticId           count    # children    max         min         avg         p50         p75         95          p99
 root                 1        2             270.85ms    270.85ms    270.85ms    270.85ms    270.85ms    270.85ms    270.85ms
 |- child1            10       0             17.14ms     14.82ms     15.59ms     15.42ms     15.76ms     16.75ms     17.06ms
@@ -158,6 +158,35 @@ root                 1        2             270.85ms    270.85ms    270.85ms    
 The html output will print more information like the separate transaction runs, the related transaction data, the hierarchy of the runs and similar.
 
 If you're interested in a GUI that visualizes the data stored in mongodb please let me now with a :thumbsup: on this [issue](https://github.com/matzehecht/trace-it/issues/4).
+
+### Additional stuff
+
+#### CLI
+
+The cli tool was introduced [earlier](#-analyze).
+The cli does have one additional command: `clear`.  
+This command is used to clear the whole storage.
+
+```sh
+npx @trace-it/cli clear --help
+```
+
+```sh
+USAGE: trace-it clear <OPTIONS>
+
+MANDATORY OPTIONS:
+    --driver            The storage driver ('lowdb' or 'mongodb').
+    --dbName            The database name (or filePath for lowdb).
+    --dbUrl             The database url (not used for lowdb).
+    --dbUser            The database user (not used for lowdb).
+    --dbPassword        The database password (not used for lowdb).
+```
+
+### Related packages
+
+* The cli tool:       [repo](https://github.com/matzehecht/trace-it-cli) [npm](https://www.npmjs.com/package/@trace-it/cli)
+* The shared types:   [repo](https://github.com/matzehecht/trace-it-types) [npm](https://www.npmjs.com/package/@trace-it/types)
+* The lowdb adapter:  [repo](https://github.com/matzehecht/trace-it-lowdb-adapter) [npm](https://www.npmjs.com/package/@trace-it/lowdb-adapter)
 
 ## Changelog
 
