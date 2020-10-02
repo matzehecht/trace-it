@@ -1,9 +1,6 @@
-import { InitOptions, PRECISION, TransactionData } from './models';
-import * as Storage from './storage';
+import { PRECISION, TransactionData, Adapter } from '@trace-it/types';
 
-export { PRECISION, InitOptions, TransactionData };
-
-let StorageAdapter: Storage.Adapter = Storage.getStorage('memory', {});
+let StorageAdapter: Adapter | undefined;
 
 /**
  * Initializes trace-it.
@@ -11,8 +8,8 @@ let StorageAdapter: Storage.Adapter = Storage.getStorage('memory', {});
  * @export
  * @param {InitOptions} [{ storage = 'memory', storageOptions = {} }={ storage: 'memory', storageOptions: {} }]
  */
-export function init({ storage = 'memory', storageOptions = {} }: InitOptions = { storage: 'memory', storageOptions: {} }) {
-  StorageAdapter = Storage.getStorage(storage, storageOptions);
+export function init(storage?: Adapter) {
+  StorageAdapter = storage;
 }
 
 /**
@@ -26,7 +23,7 @@ export class Transaction {
   private endCb: ((result: Result) => void) | undefined;
   private parentSemanticId: string[];
   private semanticId: string;
-  private syntacticId: Promise<string>;
+  private syntacticId: Promise<string> | undefined;
   private transactionData: TransactionData = {};
 
   private result: Result | undefined;
@@ -43,7 +40,7 @@ export class Transaction {
     this.parentSemanticId = parentSemanticId;
     this.semanticId = semanticId;
     this.startTime = process.hrtime.bigint();
-    this.syntacticId = StorageAdapter.createTransaction([...parentSemanticId, semanticId], this.startTime);
+    this.syntacticId = StorageAdapter?.createTransaction([...parentSemanticId, semanticId], this.startTime);
   }
 
   /**
@@ -56,7 +53,7 @@ export class Transaction {
   public startChild(semanticId: string): Transaction {
     const child = new Transaction(semanticId, this.parentSemanticId.concat(this.semanticId));
 
-    this.syntacticId.then(id => {
+    this.syntacticId?.then(id => {
       child.setParentSyntacticId(id);
     });
 
@@ -74,7 +71,7 @@ export class Transaction {
    * @memberof Transaction
    */
   protected async setParentSyntacticId(parentSyntacticId: string): Promise<void> {
-    await StorageAdapter.setTransactionParent([...this.parentSemanticId, this.semanticId], await this.syntacticId, parentSyntacticId);
+    await StorageAdapter?.setTransactionParent([...this.parentSemanticId, this.semanticId], await this.syntacticId!, parentSyntacticId);
   }
 
   /**
@@ -117,10 +114,10 @@ export class Transaction {
       } else {
         this.transactionData[x] = y;
       }
-      StorageAdapter.updateTransactionData(await this.syntacticId, x, y);
+      StorageAdapter?.updateTransactionData(await this.syntacticId!, x, y);
     } else {
       this.transactionData = { ...this.transactionData, ...x };
-      StorageAdapter.updateTransactionData(await this.syntacticId, x);
+      StorageAdapter?.updateTransactionData(await this.syntacticId!, x);
     }
   }
 
@@ -160,8 +157,8 @@ export class Transaction {
     this.result = result;
     this.endCb?.(result);
 
-    this.syntacticId.then((id) => {
-      StorageAdapter.endTransaction([...this.parentSemanticId, this.semanticId], id, timing);
+    this.syntacticId?.then((id) => {
+      StorageAdapter?.endTransaction([...this.parentSemanticId, this.semanticId], id, timing);
     });
 
     return result;
