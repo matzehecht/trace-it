@@ -1,5 +1,5 @@
 # :clock1: Trace-it :mag_right:
-![Release](https://github.com/matzehecht/trace-it/workflows/Release/badge.svg?branch=master) [![npm](https://img.shields.io/npm/v/trace-it)](https://www.npmjs.org/package/trace-it) [![NPM](https://img.shields.io/npm/l/trace-it)](https://github.com/matzehecht/trace-it/blob/dev/LICENSE) [![npm](https://img.shields.io/npm/dm/trace-it)](https://www.npmjs.org/package/trace-it)
+![Release](https://github.com/matzehecht/trace-it/workflows/Release/badge.svg?branch=main) [![npm](https://img.shields.io/npm/v/trace-it)](https://www.npmjs.org/package/trace-it) [![NPM](https://img.shields.io/npm/l/trace-it)](https://github.com/matzehecht/trace-it/blob/dev/LICENSE) [![npm](https://img.shields.io/npm/dm/trace-it)](https://www.npmjs.org/package/trace-it)
 
 > This package provides a lightweight performance tracing/measuring tool based on transaction trees. (Inspired by the performance monitoring from sentry.io. But is not distributed).
 
