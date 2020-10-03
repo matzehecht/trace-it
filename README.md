@@ -97,9 +97,9 @@ console.log(result.toString(TraceIt.PRECISION.MS)); // Serializes the transactio
 
 Now a little advanced usage.  
 Storing the transaction result only in the memory can be cool but not really helpful to do tracing on long running applications.  
-So I can happily announce that trace-it also adapters for writing to a database. These sadapters are provided as plugins by other packages (so you only have to load the adapter you want).
-Currently only a local [lowdb](https://github.com/typicode/lowdb) is supported but mongodb support is coming soon.
-You can find the package [here](https://www.npmjs.com/package/@trace-it/lowdb-adapter).  
+So I can happily announce that trace-it also has adapters for writing to a database. These adapters are provided as plugins by other packages (so you only have to load the adapter you want).
+You can find all adapters tagged with trace-it-adapter on npm. ([here](https://www.npmjs.com/search?q=keywords%3Atrace-it-adapter))
+Examples for such adapters are the adapter to a local [lowdb](https://github.com/typicode/lowdb) ([here](https://www.npmjs.com/package/@trace-it/lowdb-adapter)) and to mongodb ([here](https://www.npmjs.com/package/@trace-it/mongodb-adapter)).
 To connect to a database you only have to initialize trace-it before using it.
 
 ```typescript

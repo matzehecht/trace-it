@@ -34,7 +34,8 @@
     "transaction",
     "measuring",
     "tracing",
-    "trace"
+    "trace",
+    "trace-it"
   ],
   "bugs": {
     "url": "https://github.com/matzehecht/trace-it/issues"
