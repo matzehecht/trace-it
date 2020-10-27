@@ -1,3 +1,5 @@
+![trace-it](https://socialify.git.ci/matzehecht/trace-it/image?description=1&descriptionEditable=%E2%8F%B1%20Lightweight%20performance%20tracing%20%F0%9F%94%8D&font=Raleway&issues=1&logo=https%3A%2F%2Fgithub.com%2Fmatzehecht%2Ftrace-it%2Fraw%2Fmain%2Fmisc%2Ftrace-it.png&pattern=Brick%20Wall&stargazers=1&theme=Light)
+
 # :clock1: Trace-it :mag_right:
 ![Release](https://github.com/matzehecht/trace-it/workflows/Release/badge.svg?branch=main) [![npm](https://img.shields.io/npm/v/trace-it)](https://www.npmjs.org/package/trace-it) [![NPM](https://img.shields.io/npm/l/trace-it)](https://github.com/matzehecht/trace-it/blob/dev/LICENSE) [![npm](https://img.shields.io/npm/dm/trace-it)](https://www.npmjs.org/package/trace-it)
 
