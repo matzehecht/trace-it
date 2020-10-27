@@ -43,19 +43,8 @@
   "homepage": "https://github.com/matzehecht/trace-it",
   "release": {
     "branches": [
-      "master",
-      {
-        "name": "+([0-9])?(.{+([0-9]),x}).x",
-        "prerelease": false
-      },
-      {
-        "name": "main",
-        "prerelease": false
-      },
-      {
-        "name": "dev",
-        "prerelease": true
-      }
+      "main",
+      "+([0-9])?(.{+([0-9]),x}).x"
     ]
   }
 }
