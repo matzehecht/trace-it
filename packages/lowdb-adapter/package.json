@@ -27,7 +27,7 @@
     "nanoid": "^3.1.12"
   },
   "peerDependencies": {
-    "trace-it": "0.0.0-development >= 1.0.0 < 2"
+    "trace-it": "0.0.0-development"
   },
   "repository": {
     "type": "git",
