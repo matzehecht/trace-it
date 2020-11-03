@@ -3,6 +3,7 @@
   "version": "0.0.0-development",
   "description": "CLI tool related to trace-it",
   "scripts": {
+    "clean": "shx rm -rf tsconfig.tsbuildinfo dist",
     "prebuild": "shx rm -rf dist",
     "build": "tsc"
   },
@@ -16,8 +17,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@trace-it/lowdb-adapter": "^1.0.0",
-    "@trace-it/types": "^2.0.0"
+    "@trace-it/lowdb-adapter": "0.0.0-development",
+    "@trace-it/types": "0.0.0-development"
   },
   "repository": {
     "type": "git",

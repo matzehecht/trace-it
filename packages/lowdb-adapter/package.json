@@ -3,6 +3,7 @@
   "version": "0.0.0-development",
   "description": "Lowdb adapter for trace-it",
   "scripts": {
+    "clean": "shx rm -rf tsconfig.tsbuildinfo dist",
     "prebuild": "shx rm -rf dist",
     "build": "tsc"
   },
@@ -14,10 +15,11 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "trace-it": "0.0.0-development",
     "@types/lowdb": "^1.0.9"
   },
   "dependencies": {
-    "@trace-it/types": "^2.0.0",
+    "@trace-it/types": "0.0.0-development",
     "lowdb": "^1.0.0",
     "nanoid": "^3.1.12"
   },

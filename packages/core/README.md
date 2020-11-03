@@ -6,7 +6,7 @@
 # :clock1: Trace-it :mag_right:
 <!-- markdownlint-enable MD026 -->
 
-![Release](https://github.com/matzehecht/trace-it/workflows/Release/badge.svg?branch=main) [![npm](https://img.shields.io/npm/v/trace-it)](https://www.npmjs.org/package/trace-it) [![NPM](https://img.shields.io/npm/l/trace-it)](https://github.com/matzehecht/trace-it/blob/dev/LICENSE) [![npm](https://img.shields.io/npm/dm/trace-it)](https://www.npmjs.org/package/trace-it)
+![Release](https://github.com/matzehecht/trace-it/workflows/Release/badge.svg?branch=main) [![npm](https://img.shields.io/npm/v/trace-it)](https://www.npmjs.org/package/trace-it) [![NPM](https://img.shields.io/npm/l/trace-it)](https://github.com/matzehecht/trace-it/blob/main/LICENSE) [![npm](https://img.shields.io/npm/dm/trace-it)](https://www.npmjs.org/package/trace-it)
 
 > This package provides a lightweight performance tracing/measuring tool based on transaction trees. (Inspired by the performance monitoring from sentry.io. But is not distributed).
 
@@ -191,9 +191,9 @@ MANDATORY OPTIONS:
 
 ### Related packages
 
-- The cli tool:       [repo](https://github.com/matzehecht/trace-it-cli) [npm](https://www.npmjs.com/package/@trace-it/cli)
-- The shared types:   [repo](https://github.com/matzehecht/trace-it-types) [npm](https://www.npmjs.com/package/@trace-it/types)
-- The lowdb adapter:  [repo](https://github.com/matzehecht/trace-it-lowdb-adapter) [npm](https://www.npmjs.com/package/@trace-it/lowdb-adapter)
+- The cli tool:       [npm](https://www.npmjs.com/package/@trace-it/cli)
+- The shared types:   [npm](https://www.npmjs.com/package/@trace-it/types)
+- The lowdb adapter:  [npm](https://www.npmjs.com/package/@trace-it/lowdb-adapter)
 
 ## Changelog
 

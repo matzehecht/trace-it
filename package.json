@@ -1,12 +1,13 @@
 {
   "name": "trace-it-monorepo",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "This package provides a lightweight performance tracing/measuring tool based on transaction trees. (Inspired by the performance monitoring from sentry.io. But is not distributed)",
   "engines": {
     "npm": ">=7.0.0"
   },
   "scripts": {
-    "build": "lerna run build --stream"
+    "clean": "lerna run clean --stream --parallel",
+    "build": "lerna run build --stream --concurrency 1"
   },
   "workspaces": [
     "packages/*"
