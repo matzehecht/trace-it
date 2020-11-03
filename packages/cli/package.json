@@ -3,7 +3,7 @@
   "version": "0.0.0-development",
   "description": "CLI tool related to trace-it",
   "scripts": {
-    "prebuild": "npm ci && shx rm -rf dist",
+    "prebuild": "shx rm -rf dist",
     "build": "tsc"
   },
   "bin": {

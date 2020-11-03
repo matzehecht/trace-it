@@ -3,7 +3,7 @@
   "version": "0.0.0-development",
   "description": "Lowdb adapter for trace-it",
   "scripts": {
-    "prebuild": "npm ci && shx rm -rf dist",
+    "prebuild": "shx rm -rf dist",
     "build": "tsc"
   },
   "main": "dist/index.js",
