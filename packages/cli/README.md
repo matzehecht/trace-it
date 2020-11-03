@@ -1,12 +1,12 @@
 <!-- markdownlint-disable MD041 -->
-[![trace-it-cli](https://socialify.git.ci/matzehecht/trace-it-cli/image?description=1&descriptionEditable=%E2%8F%B1%20Lowdb%20adapter%20for%20trace-it%20%F0%9F%94%8D&font=Raleway&logo=https%3A%2F%2Fgithub.com%2Fmatzehecht%2Ftrace-it%2Fraw%2Fmain%2Fmisc%2Ftrace-it.png&pattern=Brick%20Wall&theme=Light))](https://github.com/matzehecht/trace-it-cli)
+[![trace-it-cli](https://socialify.git.ci/matzehecht/trace-it/image?description=1&descriptionEditable=%E2%8F%B1%20CLI%20Tool%20for%20trace-it%20%F0%9F%94%8D&font=Raleway&logo=https%3A%2F%2Fgithub.com%2Fmatzehecht%2Ftrace-it%2Fraw%2Fmain%2Fmisc%2Ftrace-it.png&pattern=Brick%20Wall&theme=Light))](https://github.com/matzehecht/trace-it/tree/main/packages/cli)
 <!-- markdownlint-enable MD041 -->
 
 <!-- markdownlint-disable MD026 -->
 # :clock1: CLI Tool for [Trace-it](https://github.com/matzehecht/trace-it) :mag_right:
 <!-- markdownlint-enable MD026 -->
 
-![Release](https://github.com/matzehecht/trace-it-cli/workflows/Release/badge.svg?branch=main) [![npm (scoped)](https://img.shields.io/npm/v/@trace-it/cli)](https://www.npmjs.org/package/@trace-it/cli) [![NPM](https://img.shields.io/npm/l/@trace-it/cli)](https://github.com/matzehecht/trace-it-cli/blob/dev/LICENSE) [![npm](https://img.shields.io/npm/dm/@trace-it/cli)](https://www.npmjs.org/package/@trace-it/cli)
+![Release](https://github.com/matzehecht/trace-it/workflows/Release/badge.svg?branch=main) [![npm (scoped)](https://img.shields.io/npm/v/@trace-it/cli)](https://www.npmjs.org/package/@trace-it/cli) [![NPM](https://img.shields.io/npm/l/@trace-it/cli)](https://github.com/matzehecht/trace-it/blob/main/LICENSE) [![npm](https://img.shields.io/npm/dm/@trace-it/cli)](https://www.npmjs.org/package/@trace-it/cli)
 
 This package provides some cli tools for the performance measuring tool [trace-it]([https](https://github.com/matzehecht/trace-it)).
 
