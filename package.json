@@ -6,7 +6,6 @@
     "npm": ">=7.0.0"
   },
   "scripts": {
-    "prebuild": "npm ci",
     "build": "lerna run build --stream"
   },
   "workspaces": [
