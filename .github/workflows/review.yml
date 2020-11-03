@@ -1,7 +1,7 @@
-name: Release
+name: Review
 
 on:
-  push:
+  pull_request:
     branches:
       - main
 
@@ -29,4 +29,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npx multi-semantic-release
+        run: npx multi-semantic-release --dry-run
