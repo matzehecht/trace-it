@@ -1,5 +1,6 @@
 import { Adapter, InitStorageOptions, PRECISION } from '@trace-it/types';
 import { LowDbAdapter } from '@trace-it/lowdb-adapter';
+import { MongoDbAdapter } from '@trace-it/mongodb-adapter';
 
 import { analyze, printStdout } from './analyze';
 import { clear } from './storage';
@@ -76,26 +77,21 @@ function getStorageOptions(args: string[]) {
   if (!['lowdb', 'mongodb'].includes(driver)) exit(1, `${driver} not found`);
 
   const dbNameIndex = args.indexOf('--dbName');
-  if (dbNameIndex < 0) exit(1, 'No dbName specified');
-  const dbName = args[dbNameIndex + 1];
+  const dbName = dbNameIndex < 0 ? undefined : args[dbNameIndex + 1];
 
   let dbUrl: string | undefined;
   let dbUser: string | undefined;
   let dbPassword: string | undefined;
 
   if (driver === 'mongodb') {
-    exit(1, 'mongodb not implemented yet');
     const dbUrlIndex = args.indexOf('--dbUrl');
-    if (dbUrlIndex < 0) exit(1, 'No dbUrl specified');
-    dbUrl = args[dbUrlIndex + 1];
+    dbUrl = dbUrlIndex < 0 ? undefined : args[dbUrlIndex + 1];
 
     const dbUserIndex = args.indexOf('--dbUser');
-    if (dbUserIndex < 0) exit(1, 'No dbUser specified');
-    dbUser = args[dbUserIndex + 1];
+    dbUser = dbUserIndex < 0 ? undefined : args[dbUserIndex + 1];
 
     const dbPasswordIndex = args.indexOf('--dbPassword');
-    if (dbPasswordIndex < 0) exit(1, 'No dbPassword specified');
-    dbPassword = args[dbPasswordIndex + 1];
+    dbPassword = dbPasswordIndex < 0 ? undefined : args[dbPasswordIndex + 1];
   }
 
   return { driver, dbName, dbUrl, dbUser, dbPassword };
@@ -114,6 +110,8 @@ function getStorage(driver: Drivers, options: InitStorageOptions): Adapter {
   switch(driver) {
     case 'lowdb':
       return new LowDbAdapter(options);
+    case 'mongodb':
+      return new MongoDbAdapter(options);
     default:
       exit(1, `Driver ${driver} not supported (yet).`);
       throw new Error();

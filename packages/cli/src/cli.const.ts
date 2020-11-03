@@ -21,16 +21,18 @@ USAGE: trace-it analyze <OPTIONS>
 
 MANDATORY OPTIONS:
     --driver            The storage driver ('lowdb' or 'mongodb').
+
+    --output            Output format ('stdout' or 'html').
+    --outputFile        Output file name (only mandatory and used for html).
+
+OPTIONAL OPTIONS:
     --dbName            The database name (or filePath for lowdb).
     --dbUrl             The database url (not used for lowdb).
     --dbUser            The database user (not used for lowdb).
     --dbPassword        The database password (not used for lowdb).
 
     --precision         The precision of the measured values ('ns', 'ms' or 's').
-                        Default: 'ms'.
-
-    --output            Output format ('stdout' or 'html').
-    --outputFile        Output file name (used for html).`;
+                        Default: 'ms'.`;
 
 export const CLEAR_HELP_MESSAGE = `${PRE_HELP_MESSAGE}
 CLI tool to clear the measured performance
@@ -39,6 +41,8 @@ USAGE: trace-it clear <OPTIONS>
 
 MANDATORY OPTIONS:
     --driver            The storage driver ('lowdb' or 'mongodb').
+
+OPTIONAL OPTIONS:
     --dbName            The database name (or filePath for lowdb).
     --dbUrl             The database url (not used for lowdb).
     --dbUser            The database user (not used for lowdb).
