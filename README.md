@@ -105,8 +105,7 @@ console.log(result.toString(TraceIt.PRECISION.MS)); // Serializes the transactio
 Now a little advanced usage.  
 Storing the transaction result only in the memory can be cool but not really helpful to do tracing on long running applications.  
 So I can happily announce that trace-it also has adapters for writing to a database. These adapters are provided as plugins by other packages (so you only have to load the adapter you want).
-You can find all adapters tagged with trace-it-adapter on npm. ([here](https://www.npmjs.com/search?q=keywords%3Atrace-it-adapter))
-Examples for such adapters are the adapter to a local [lowdb](https://github.com/typicode/lowdb) ([here](https://www.npmjs.com/package/@trace-it/lowdb-adapter)) and to mongodb ([here](https://www.npmjs.com/package/@trace-it/mongodb-adapter)).
+You can find all adapters tagged with trace-it-adapter on npm ([here](https://www.npmjs.com/search?q=keywords%3Atrace-it-adapter)). Examples for such adapters are the adapter to a local [lowdb](https://github.com/typicode/lowdb) ([here](https://www.npmjs.com/package/@trace-it/lowdb-adapter)) and to mongodb ([here](https://www.npmjs.com/package/@trace-it/mongodb-adapter)).
 To connect to a database you only have to initialize trace-it before using it.
 
 ```typescript
@@ -138,7 +137,12 @@ npx @trace-it/cli analyze --help
 USAGE: npx @trace-it/cli analyze <OPTIONS>
 
 MANDATORY OPTIONS:
-    --driver            The storage driver ('lowdb' or 'mongodb').    # Again mongodb is coming soon.
+    --driver            The storage driver ('lowdb' or 'mongodb').
+
+    --output            Output format ('stdout' or 'html').           # HTML is coming soon.
+    --outputFile        Output file name (only mandatory and used for html).
+
+OPTIONAL OPTIONS:
     --dbName            The database name (or filePath for lowdb).
     --dbUrl             The database url (not used for lowdb).
     --dbUser            The database user (not used for lowdb).
@@ -146,9 +150,6 @@ MANDATORY OPTIONS:
 
     --precision         The precision of the measured values ('ns', 'ms' or 's').
                         Default: 'ms'.
-
-    --output            Output format ('stdout' or 'html').           # HTML is coming soon.
-    --outputFile        Output file name (used for html).
 ```
 
 The stdout output does only print some basic information:
@@ -183,6 +184,8 @@ USAGE: trace-it clear <OPTIONS>
 
 MANDATORY OPTIONS:
     --driver            The storage driver ('lowdb' or 'mongodb').
+
+OPTIONAL OPTIONS:
     --dbName            The database name (or filePath for lowdb).
     --dbUrl             The database url (not used for lowdb).
     --dbUser            The database user (not used for lowdb).
