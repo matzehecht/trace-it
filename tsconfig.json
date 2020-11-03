@@ -12,9 +12,13 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "declaration": true,
-    "rootDir": "src",
-    "outDir": "dist"
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "tmp/*"]
+    "baseUrl": "./packages",
+    "composite": true,
+    "paths": {
+      "trace-it": ["./core"],
+      "@trace-it/cli": ["./cli"],
+      "@trace-it/types": ["./types"],
+      "@trace-it/lowdb-adapter": ["./lowdb-adapter"]
+    }
+  }
 }
