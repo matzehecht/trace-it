@@ -1,0 +1,50 @@
+{
+  "name": "@trace-it/lowdb-adapter",
+  "version": "0.0.0-development",
+  "description": "Lowdb adapter for trace-it",
+  "scripts": {
+    "prebuild": "npm ci && shx rm -rf dist",
+    "build": "tsc"
+  },
+  "main": "dist/index.js",
+  "author": {
+    "name": "Matthias Hecht",
+    "email": "matthias@hecht.space",
+    "url": "https://hecht.space"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/lowdb": "^1.0.9",
+    "@types/node": "^14.11.1",
+    "semantic-release": "^17.1.2",
+    "shx": "^0.3.2",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.3"
+  },
+  "dependencies": {
+    "@trace-it/types": "^2.0.0",
+    "lowdb": "^1.0.0",
+    "nanoid": "^3.1.12"
+  },
+  "peerDependencies": {
+    "trace-it": "0.0.0-development >= 1.0.0 < 2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/matzehecht/trace-it-lowdb-adapter.git"
+  },
+  "keywords": [
+    "performace",
+    "transaction",
+    "measuring",
+    "tracing",
+    "trace",
+    "trace-it",
+    "lowdb",
+    "trace-it-adapter"
+  ],
+  "bugs": {
+    "url": "https://github.com/matzehecht/trace-it-lowdb-adapter/issues"
+  },
+  "homepage": "https://github.com/matzehecht/trace-it-lowdb-adapter"
+}

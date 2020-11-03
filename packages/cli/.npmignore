@@ -1,10 +1,6 @@
-.github
-.vscode
 node_modules
 src
 tmp
 .gitignore
-.prettierrc
 tsconfig.json
-tslint.json
-misc
+tsconfig.tsbuildinfo

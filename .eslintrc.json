@@ -1,6 +1,6 @@
 {
   "defaultSeverity": "error",
-  "extends": ["tslint:recommended"],
+  "extends": ["eslint:recommended"],
   "jsRules": {},
   "rules": {
     "quotemark": [true, "single", "avoid-escape"],
@@ -8,7 +8,7 @@
     "eofline": true,
     "space-before-function-paren": [false],
     "no-console": [false],
-    "arrow-parens": false,
+    "arrow-parens": 1,
     "object-literal-sort-keys": false,
     "ordered-imports": [false],
     "max-line-length": [false],
@@ -21,7 +21,7 @@
     "no-any": false,
     "semicolon": true,
     "no-shadowed-variable": false,
-    "no-empty": false
+    "no-empty": 1
   },
   "rulesDirectory": []
 }
