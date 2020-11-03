@@ -1,5 +1,5 @@
 <!-- markdownlint-disable MD041 -->
-[![trace-it-cli](https://socialify.git.ci/matzehecht/trace-it/image?description=1&descriptionEditable=%E2%8F%B1%20CLI%20Tool%20for%20trace-it%20%F0%9F%94%8D&font=Raleway&logo=https%3A%2F%2Fgithub.com%2Fmatzehecht%2Ftrace-it%2Fraw%2Fmain%2Fmisc%2Ftrace-it.png&pattern=Brick%20Wall&theme=Light))](https://github.com/matzehecht/trace-it/tree/main/packages/cli)
+[![trace-it-cli](https://socialify.git.ci/matzehecht/trace-it/image?description=1&descriptionEditable=%E2%8F%B1%20CLI%20Tool%20for%20trace-it%20%F0%9F%94%8D&font=Raleway&logo=https%3A%2F%2Fgithub.com%2Fmatzehecht%2Ftrace-it%2Fraw%2Fmain%2Fmisc%2Ftrace-it.png&pattern=Brick%20Wall&theme=Light)](https://github.com/matzehecht/trace-it/tree/main/packages/cli)
 <!-- markdownlint-enable MD041 -->
 
 <!-- markdownlint-disable MD026 -->
