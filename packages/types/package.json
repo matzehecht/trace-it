@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/matzehecht/trace-it-types.git"
+    "url": "git+https://github.com/matzehecht/trace-it.git"
   },
   "keywords": [
     "performace",
@@ -33,7 +33,7 @@
     "trace-it"
   ],
   "bugs": {
-    "url": "https://github.com/matzehecht/trace-it-types/issues"
+    "url": "https://github.com/matzehecht/trace-it/issues"
   },
-  "homepage": "https://github.com/matzehecht/trace-it-types"
+  "homepage": "https://github.com/matzehecht/trace-it#readme"
 }

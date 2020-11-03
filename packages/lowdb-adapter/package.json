@@ -31,7 +31,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/matzehecht/trace-it-lowdb-adapter.git"
+    "url": "git+https://github.com/matzehecht/trace-it.git"
   },
   "keywords": [
     "performace",
@@ -44,7 +44,7 @@
     "trace-it-adapter"
   ],
   "bugs": {
-    "url": "https://github.com/matzehecht/trace-it-lowdb-adapter/issues"
+    "url": "https://github.com/matzehecht/trace-it/issues"
   },
-  "homepage": "https://github.com/matzehecht/trace-it-lowdb-adapter"
+  "homepage": "https://github.com/matzehecht/trace-it#readme"
 }

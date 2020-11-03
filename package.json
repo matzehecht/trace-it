@@ -34,7 +34,7 @@
   "bugs": {
     "url": "https://github.com/matzehecht/trace-it/issues"
   },
-  "homepage": "https://github.com/matzehecht/trace-it",
+  "homepage": "https://github.com/matzehecht/trace-it#readme",
   "release": {
     "branches": [
       "main",
