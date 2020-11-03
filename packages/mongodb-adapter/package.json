@@ -1,15 +1,13 @@
 {
-  "name": "@trace-it/cli",
+  "name": "@trace-it/mongodb-adapter",
   "version": "0.0.0-development",
-  "description": "CLI tool related to trace-it",
+  "description": "Mongodb adapter for trace-it",
   "scripts": {
     "clean": "shx rm -rf tsconfig.tsbuildinfo dist",
     "prebuild": "shx rm -rf dist",
     "build": "tsc"
   },
-  "bin": {
-    "cli": "bin/cli"
-  },
+  "main": "dist/index.js",
   "author": {
     "name": "Matthias Hecht",
     "email": "matthias@hecht.space",
@@ -17,9 +15,16 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@trace-it/lowdb-adapter": "0.0.0-development",
-    "@trace-it/mongodb-adapter": "^0.0.0-development",
-    "@trace-it/types": "0.0.0-development"
+    "@trace-it/types": "0.0.0-development",
+    "mongodb": "^3.6.2",
+    "nanoid": "^3.1.16"
+  },
+  "devDependencies": {
+    "@types/mongodb": "^3.5.32",
+    "trace-it": "0.0.0-development"
+  },
+  "peerDependencies": {
+    "trace-it": "0.0.0-development"
   },
   "repository": {
     "type": "git",
@@ -32,7 +37,8 @@
     "tracing",
     "trace",
     "trace-it",
-    "cli"
+    "mongodb",
+    "trace-it-adapter"
   ],
   "bugs": {
     "url": "https://github.com/matzehecht/trace-it/issues"

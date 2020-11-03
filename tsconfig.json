@@ -18,7 +18,8 @@
       "trace-it": ["./core"],
       "@trace-it/cli": ["./cli"],
       "@trace-it/types": ["./types"],
-      "@trace-it/lowdb-adapter": ["./lowdb-adapter"]
+      "@trace-it/lowdb-adapter": ["./lowdb-adapter"],
+      "@trace-it/mongodb-adapter": ["./mongodb-adapter"]
     }
   }
 }
