@@ -4,7 +4,7 @@
   "description": "This package provides a lightweight performance tracing/measuring tool based on transaction trees. (Inspired by the performance monitoring from sentry.io. But is not distributed)",
   "main": "dist/index.js",
   "scripts": {
-    "prebuild": "npm ci && shx rm -rf dist",
+    "prebuild": "shx rm -rf dist",
     "build": "tsc"
   },
   "author": {

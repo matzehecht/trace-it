@@ -4,7 +4,7 @@
   "description": "Types for trace-it",
   "main": "dist/index.js",
   "scripts": {
-    "prebuild": "npm ci && shx rm -rf dist",
+    "prebuild": "shx rm -rf dist",
     "build": "tsc"
   },
   "author": {
