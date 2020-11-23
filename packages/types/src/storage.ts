@@ -28,7 +28,7 @@ export abstract class Adapter {
    * @returns {Promise<string>}
    * @memberof Adapter
    */
-  public abstract async createTransaction(semanticId: string[], startTime: BigInt): Promise<string>;
+  public abstract createTransaction(semanticId: string[], startTime: BigInt): Promise<string>;
 
   /**
    * This will set the parent (with parentSyntacticId) of a transaction identified by the semanticId + syntacticId.
@@ -40,7 +40,7 @@ export abstract class Adapter {
    * @returns {Promise<void>}
    * @memberof Adapter
    */
-  public abstract async setTransactionParent(semanticId: string[], syntacticId: string, parentSyntacticId: string): Promise<void>;
+  public abstract setTransactionParent(semanticId: string[], syntacticId: string, parentSyntacticId: string): Promise<void>;
 
   /**
    * This will insert the timing in the transaction identified by the semanticId + syntacticId.
@@ -51,7 +51,7 @@ export abstract class Adapter {
    * @returns {Promise<void>}
    * @memberof Adapter
    */
-  public abstract async endTransaction(semanticId: string[], syntacticId: string, timing: BigInt): Promise<void>;
+  public abstract endTransaction(semanticId: string[], syntacticId: string, timing: BigInt): Promise<void>;
 
   /**
    * This will update the transactionData identified by the syntacticId.
@@ -64,7 +64,7 @@ export abstract class Adapter {
    * @returns {Promise<void>}
    * @memberof Adapter
    */
-  public abstract async updateTransactionData(syntacticId: string, key: string, value: any | undefined): Promise<void>;
+  public abstract updateTransactionData(syntacticId: string, key: string, value: any | undefined): Promise<void>;
 
   /**
    * This will update the transactionData identified by it the syntacticId of the related transaction.
@@ -76,7 +76,7 @@ export abstract class Adapter {
    * @returns {Promise<void>}
    * @memberof Adapter
    */
-  public abstract async updateTransactionData(syntacticId: string, transactionData: TransactionData): Promise<void>;
+  public abstract updateTransactionData(syntacticId: string, transactionData: TransactionData): Promise<void>;
 
   /**
    * This will return the semanticId of all children identified by the semanticId.
@@ -86,7 +86,7 @@ export abstract class Adapter {
    * @returns {Promise<string[][]>}
    * @memberof Adapter
    */
-  public abstract async getChildren(semanticId: string[]): Promise<string[][]>;
+  public abstract getChildren(semanticId: string[]): Promise<string[][]>;
 
   /**
    * This will return all the timings of the instances (the transaction runs).
@@ -96,7 +96,7 @@ export abstract class Adapter {
    * @returns {(Promise<(number | undefined)[]>)}
    * @memberof Adapter
    */
-  public abstract async getInstancesTimings(semanticId: string[]): Promise<(number | undefined)[]>;
+  public abstract getInstancesTimings(semanticId: string[]): Promise<(number | undefined)[]>;
 
   /**
    * This will return the Instances of the Transaction.
@@ -106,7 +106,7 @@ export abstract class Adapter {
    * @returns {Promise<TransactionInstance[]>}
    * @memberof Adapter
    */
-  public abstract async getInstances(semanticId: string[]): Promise<TransactionInstance[]>;
+  public abstract getInstances(semanticId: string[]): Promise<TransactionInstance[]>;
 
   /**
    * This will return the transaction data of a transaction.
@@ -116,7 +116,7 @@ export abstract class Adapter {
    * @returns {Promise<TransactionData>}
    * @memberof Adapter
    */
-  public abstract async getTransactionData(syntacticId: string): Promise<TransactionData>;
+  public abstract getTransactionData(syntacticId: string): Promise<TransactionData>;
 
   /**
    * This will clear the storage. **ATTENTION** It deletes all measures.
@@ -125,5 +125,5 @@ export abstract class Adapter {
    * @returns {Promise<void>}
    * @memberof Adapter
    */
-  public abstract async clear(): Promise<void>;
+  public abstract clear(): Promise<void>;
 }
