@@ -42,11 +42,17 @@
     ]
   },
   "devDependencies": {
-    "@qiwi/multi-semantic-release": "^3.9.5",
-    "@types/node": "^14.14.9",
-    "lerna": "^3.22.1",
+    "@qiwi/multi-semantic-release": "^3.17.0",
+    "@types/node": "^16.11.9",
+    "cz-conventional-changelog": "^3.3.0",
+    "lerna": "^4.0.0",
     "shx": "^0.3.3",
-    "ts-node": "^9.0.0",
-    "typescript": "^4.1.2"
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
