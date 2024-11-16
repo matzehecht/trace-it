@@ -98,7 +98,7 @@ export class LowDbAdapter implements Adapter {
     const pathToTransaction = semanticId.length === 0 ? '' : `.${semanticId.join('.children.')}.children`;
 
     return (await this.db)
-      .get(`transactions${pathToTransaction}`)
+      .get(`transactions${pathToTransaction}` as string)
       .keys()
       .value()
       .map((id) => [...semanticId, id]);
